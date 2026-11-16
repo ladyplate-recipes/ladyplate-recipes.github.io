@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Redirecting…</title>
+</head>
+<body>
+<p id="m">Redirecting…</p>
+<script id="maria-links" type="application/json">{"cheeseburger-french-fry-casserole":"https://ladyplate.com/cheeseburger-french-fry-casserole/","cheesy-beef-wraps":"https://ladyplate.com/cheesy-beef-wraps/","cheesy-bowtie-pasta-with-savory-cajun-ground-beef-in-garlic-cream":"https://ladyplate.com/cheesy-bowtie-pasta-with-savory-cajun-ground-beef-in-garlic-cream/","cheesy-garlic-twisted-pasta-with-cajun-ground-beef-and-alfredo-velveeta":"https://ladyplate.com/cheesy-garlic-twisted-pasta-with-cajun-ground-beef-and-alfredo-velveeta/","cheesy-ground-beef-tater-tot-casserole":"https://ladyplate.com/cheesy-ground-beef-tater-tot-casserole/"}</script>
+<script>
+(function () {
+  var links = JSON.parse(document.getElementById("maria-links").textContent);
+  var parts = location.search.replace(/^\?/, "").split("&");
+  var slug = "";
+  try { slug = decodeURIComponent(parts.shift() || ""); } catch (e) {}
+  slug = slug.toLowerCase().replace(/\/+$/, "");
+  var to = links[slug];
+  if (!to) { document.title = "Page not found"; document.getElementById("m").textContent = "Page not found."; return; }
+  var extra = parts.filter(Boolean).join("&");
+  if (extra) {
+    var h = to.indexOf("#"), hash = h < 0 ? "" : to.slice(h), u = h < 0 ? to : to.slice(0, h);
+    to = u + (u.indexOf("?") < 0 ? "?" : "&") + extra + hash;
+  }
+  location.replace(to);
+})();
+</script>
+</body>
+</html>
